@@ -2,9 +2,26 @@
 #main {
 	display: block;  /* up-down */ 
 	width: 80%;  /* works */ 
-	margin: auto;  /* horizontally aligns child */ 
+	/* margin: auto;  /* horizontally aligns child */ 
+	/* text-align: center;  only aligns text, not box */ 
 	background-color: blue;
 }
 #prompt {
-	width: 90%; 
+	/* width: 90%;  */ 
+	padding: 2vw; 
+	font-size: 4vw; 
+} 
+#choices {
+	/* Tough getting child buttons to display block. !important doesnt help */
+	/* display:block lined out in debugger. Didnt work on another project either - arghh */ 
+	/* Child divs do display:block. */ 
+	display: block !important;  /* up-down. */ 
+	/* background-color: red;  */ 
+} 
+.btn {
+	background-color: purple;  /* per demo */ 
+	margin: 2vw;  /* outside Button */
+	/* padding: 1vw: /* inside button - will overrid border-radius */ 
+	border-radius: 8vw;  /* overriden by margin?? */ 
+	
 } 
