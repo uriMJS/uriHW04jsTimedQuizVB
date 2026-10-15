@@ -2,13 +2,13 @@
 #main {
 	display: block;  /* up-down */ 
 	width: 80%;  /* works */ 
-	/* margin: auto;  /* horizontally aligns child */ 
+	margin: auto;  /* horizontally aligns child */ 
 	/* text-align: center;  only aligns text, not box */ 
 	background-color: blue;
 }
 #prompt {
 	/* width: 90%;  */ 
-	padding: 2vw; 
+	margin: 1vw; 
 	font-size: 4vw; 
 } 
 #choices {
@@ -16,12 +16,13 @@
 	/* display:block lined out in debugger. Didnt work on another project either - arghh */ 
 	/* Child divs do display:block. */ 
 	display: block !important;  /* up-down. */ 
+	margin: 1vw; 
 	/* background-color: red;  */ 
 } 
 .btn {
 	background-color: purple;  /* per demo */ 
-	margin: 2vw;  /* outside Button */
+	margin: 1vw;  /* outside Button */
 	/* padding: 1vw: /* inside button - will overrid border-radius */ 
-	border-radius: 8vw;  /* overriden by margin?? */ 
+	border-radius: 8vw;  /* overriden by padding?? */ 
 	
 } 

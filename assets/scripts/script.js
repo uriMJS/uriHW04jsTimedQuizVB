@@ -1,5 +1,5 @@
 /* Script.js file for dynamic js Timed Quiz */ 
-alert("Starting script.js");
+console.log("Starting script.js for Timed Quiz.");
 var mainEl = document.getElementById("main"); 
 
 var promptEl = document.createElement("section");
@@ -20,19 +20,34 @@ var currentChoice = null;
 divEl = document.createElement("div");   
 currentChoice = document.createElement("button"); 
 currentChoice.setAttribute("class", "btn"); 
+// currentChoice.onclick = "checkAnswer()";  // must use setAttribute
+currentChoice.setAttribute("onclick", "checkAnswer()");  // NOT onClick no capital C
 currentChoice.value = "a choice value";  // submission value
 currentChoice.textContent = "a choice textContent"; 
 choicesEl.appendChild(divEl); 
 divEl.appendChild(currentChoice);  
- 
+
+divEl = document.createElement("div"); 
 currentChoice = document.createElement("button");
 currentChoice.setAttribute("class", "btn");  // .class doesnt seem to work here 
 currentChoice.value = "a choice2 value";  // submission value
 currentChoice.textContent = "a choice2 textContent";  // displays on screen
-choicesEl.appendChild(currentChoice); 
+choicesEl.appendChild(divEl); 
+divEl.appendChild(currentChoice); 
 
-currentChoice = document.createElement("div");
+divEl = document.createElement("div"); 
+currentChoice = document.createElement("button");
 currentChoice.setAttribute("class", "btn");  // .class doesnt seem to work here 
 currentChoice.value = "a choice3 value";  // submission value
 currentChoice.textContent = "a choice3 textContent";  // displays on screen
-choicesEl.appendChild(currentChoice); 
+choicesEl.appendChild(divEl); 
+divEl.appendChild(currentChoice); 
+// --------------------------------------
+
+function checkAnswer ( ) { 
+	console.log("Checking Answer"); 
+	alert("Checking answer"); 
+	let correctEl = document.createElement("p");
+	correctEl.innerText = "Incorrect"; 
+	document.getElementById("main").appendChild(correctEl); 
+} 
