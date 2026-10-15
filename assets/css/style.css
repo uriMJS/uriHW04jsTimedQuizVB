@@ -1,0 +1,10 @@
+/* MJS 10.15.26: style.css for timed quiz */ 
+#main {
+	display: block;  /* up-down */ 
+	width: 80%;  /* works */ 
+	margin: auto;  /* horizontally aligns child */ 
+	background-color: blue;
+}
+#prompt {
+	width: 90%; 
+} 
