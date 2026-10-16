@@ -20,8 +20,8 @@ var currentChoice = null;
 divEl = document.createElement("div");   
 currentChoice = document.createElement("button"); 
 currentChoice.setAttribute("class", "btn"); 
-// currentChoice.onclick = "checkAnswer()";  // must use setAttribute
-currentChoice.setAttribute("onclick", "checkAnswer()");  // NOT onClick no capital C
+currentChoice.onclick = checkAnswer;  // must use setAttribute
+// currentChoice.setAttribute("onclick", "checkAnswer()");  // NOT onClick no capital C, function needs parenthesis
 currentChoice.value = "a choice value";  // submission value
 currentChoice.textContent = "a choice textContent"; 
 choicesEl.appendChild(divEl); 
@@ -44,9 +44,14 @@ choicesEl.appendChild(divEl);
 divEl.appendChild(currentChoice); 
 // --------------------------------------
 
-function checkAnswer ( ) { 
-	console.log("Checking Answer"); 
-	alert("Checking answer"); 
+function checkAnswer(event) { 
+	event.preventDefault();
+	console.log(event); 
+	// this seems to be "Object Window" 
+	console.log("Checking Answer: event = " + this.value); 
+	let val = ev.target.value;
+	console.log(val);
+	alert("Checking answer. Val is " + val); 
 	let correctEl = document.createElement("p");
 	correctEl.innerText = "Incorrect"; 
 	document.getElementById("main").appendChild(correctEl); 
