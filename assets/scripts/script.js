@@ -76,13 +76,12 @@ for (let choiceText of choiceArray) {
 	divEl.appendChild(currentChoice);  
 } // end for-of choiceArray
 
-divEl = document.createElement("div"); 
-currentChoice = document.createElement("button");
-currentChoice.setAttribute("class", "btn");  // .class doesnt seem to work here 
-currentChoice.value = "a choice2 value";  // submission value
-currentChoice.textContent = "a choice2 textContent";  // displays on screen
-choicesEl.appendChild(divEl); 
-divEl.appendChild(currentChoice); 
+var correctEl = document.createElement("section"); 
+let correctTextEl = document.createElement("p");  // Correct or Incorrect goes here
+correctTextEl.id = "correct-text-id";  
+correctEl.innerText = " ";  // displays on screen
+mainEl.appendChild(correctEl); 
+correctEl.appendChild(correctTextEl); 
 
 } // end funct renderQuestion
 // --------------------------------------
@@ -97,10 +96,9 @@ function checkAnswer(event) {
 	console.log("Event.target.value = " + correctAns);
 	console.log("Event.target.textContent = " + buttonTextContent);
 	alert("Checking answer. event.targer.value is " + correctAns); 
-	let correctEl = document.createElement("p");
+	let correctEl = document.getElementById("correct-text-id");
 	correctEl.innerText = "Incorrect"; 
 	if (correctAns.trim().toLowerCase() == buttonTextContent.trim().toLowerCase()) {
 		correctEl.innerText = "Correct"; 
 	}
-	document.getElementById("main").appendChild(correctEl); 
 } 
