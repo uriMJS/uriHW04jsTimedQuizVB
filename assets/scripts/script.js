@@ -19,9 +19,17 @@ var currentChoice = null;
 // cant get up-down display without div - argggh. Same as prior effort.
 divEl = document.createElement("div");   
 currentChoice = document.createElement("button"); 
-currentChoice.setAttribute("class", "btn"); 
-currentChoice.onclick = checkAnswer;  // must use setAttribute
-// currentChoice.setAttribute("onclick", "checkAnswer()");  // NOT onClick no capital C, function needs parenthesis
+currentChoice.setAttribute("class", "btn");  // must use setAttribute, not elem.class 
+// See https://www.xjavascript.com/blog/how-to-set-onclick-with-javascript/ for event handling tutorial.
+// 3 Ways to add event handler. 
+// 1. In-line => in html (likley not possible here), 2. Property assignment => elem.onclick, 3. addEventListener.
+// event automatically passed to elem.onclick and addEventListener.
+// parenthesis - for in-line only. For elem.onclick and addEventListener using parenthesis will execute immediately.
+// quotes - for in-line only.  Reference used for elem.onclick and addEventListener 
+// currentChoice.onclick = checkAnswer;  // This works
+currentChoice.addEventListener("click", checkAnswer);  // Also works
+// setAtrribute parenthesis + quotes executes checkAnswer method, but event null
+// currentChoice.setAttribute("onclick", "checkAnswer()");  // NOT onClick no capital C 
 currentChoice.value = "a choice value";  // submission value
 currentChoice.textContent = "a choice textContent"; 
 choicesEl.appendChild(divEl); 
@@ -46,11 +54,11 @@ divEl.appendChild(currentChoice);
 
 function checkAnswer(event) { 
 	event.preventDefault();
-	console.log(event); 
-	// this seems to be "Object Window" 
-	console.log("Checking Answer: event = " + this.value); 
-	let val = ev.target.value;
-	console.log(val);
+	console.log("Event is " + event); 
+	// this seems to be "[object HTMLbuttonElement]" 
+	console.log("Checking Answer: this.value = " + this.value); 
+	let val = event.target.value;
+	console.log("Event.target.value = " + val);
 	alert("Checking answer. Val is " + val); 
 	let correctEl = document.createElement("p");
 	correctEl.innerText = "Incorrect"; 
