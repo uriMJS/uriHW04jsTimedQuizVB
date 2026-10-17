@@ -38,9 +38,15 @@ function createQuestions() {
 function renderQuestion(question) {
 var mainEl = document.getElementById("main"); 
 
+var removableEl = document.getElementById("removable-main-wrapper"); 
+removableEl.remove(); // remove element and all children. 
+var wrapperEl = document.createElement("section");
+wrapperEl.id = "removable-main-wrapper"; 
+mainEl.appendChild(wrapperEl); 
+
 var promptEl = document.createElement("section");
 promptEl.id = "prompt";  // about 60% of screen 
-mainEl.appendChild(promptEl); 
+wrapperEl.appendChild(promptEl); 
 
 var promptTextEl = document.createElement("p");
 promptTextEl.innerText = question[promptIndex]; 
@@ -49,7 +55,7 @@ promptEl.appendChild(promptTextEl);
 // Now display the choices 
 var choicesEl = document.createElement("section");
 choicesEl.id = "choices";   // 3 or 4 possible answers to prompt 
-mainEl.appendChild(choicesEl); 
+wrapperEl.appendChild(choicesEl); 
 
 var divEl = null;
 var currentChoice = null; 
@@ -80,12 +86,13 @@ var correctEl = document.createElement("section");
 let correctTextEl = document.createElement("p");  // Correct or Incorrect goes here
 correctTextEl.id = "correct-text-id";  
 correctEl.innerText = " ";  // displays on screen
-mainEl.appendChild(correctEl); 
 correctEl.appendChild(correctTextEl); 
+wrapperEl.appendChild(correctEl); 
 
 } // end funct renderQuestion
 // --------------------------------------
 
+// When users clicks an answer, check if correct. If so check if done. If not display next question. 
 function checkAnswer(event) { 
 	event.preventDefault();
 	console.log("Event is " + event); 
