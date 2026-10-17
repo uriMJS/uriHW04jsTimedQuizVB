@@ -3,11 +3,11 @@ console.log("Starting script.js for Timed Quiz.");
 const promptIndex = 0;
 const choicesIndex = 1;
 const correctIndex = 2;
-
+var currentQuestionIndex = 0; 
 
 
 var questions = createQuestions();
-renderQuestion(questions[0]); /* put question to screen */
+renderQuestion(questions[currentQuestionIndex]); /* put question to screen */
 
 
 // Create questions (prompts, choices and correct answer).
@@ -21,7 +21,7 @@ function createQuestions() {
 	choices = ["Ans1", "Ans2", "Ans3", "Ans4"];
 	correct = ["Ans1"]; 
 	question.push(prompt, choices, correct);  // returns new array length
-	console.log("First question=" + question); 
+	// console.log("First question=" + question); 
 	newQuestions.push(question); 
 	question = [];  // -----------------------------------------
 	prompt = ["Please answer question2."];
@@ -29,7 +29,7 @@ function createQuestions() {
 	correct = ["Ans2"]; 	
 	question.push(prompt, choices, correct); 
 	newQuestions.push(question);
-	console.log("questions length " + newQuestions.length + " Questions=" + newQuestions); 
+	// console.log("questions length " + newQuestions.length + " Questions=" + newQuestions); 
 	return newQuestions; 
 } // end funct createQuestions
 
@@ -95,10 +95,24 @@ function checkAnswer(event) {
 	let buttonTextContent = event.target.textContent;
 	console.log("Event.target.value = " + correctAns);
 	console.log("Event.target.textContent = " + buttonTextContent);
-	alert("Checking answer. event.targer.value is " + correctAns); 
+	// alert("Checking answer. event.targer.value is " + correctAns); 
 	let correctEl = document.getElementById("correct-text-id");
+	let isCorrect = false; 
 	correctEl.innerText = "Incorrect"; 
 	if (correctAns.trim().toLowerCase() == buttonTextContent.trim().toLowerCase()) {
+		console.log("Answer is correct!"); 
 		correctEl.innerText = "Correct"; 
-	}
-} 
+		isCorrect = true; 
+		let globalEl = document.getElementById("global-storage");
+		let currentQuestionIndex = Number(globalEl.getAttribute("question-index"));
+		currentQuestionIndex++;
+		console.log("Next question index is " + currentQuestionIndex);
+		globalEl.setAttribute("question-index", currentQuestionIndex);
+		if (currentQuestionIndex == questions.length) {
+			alert("Done with all questions");
+		} else {
+			renderQuestion(questions[currentQuestionIndex]); 
+		} 
+	} // end if answerIsCorrect
+} // end function checkAnswer
+
