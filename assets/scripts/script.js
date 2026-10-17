@@ -83,11 +83,17 @@ for (let choiceText of choiceArray) {
 } // end for-of choiceArray
 
 var correctEl = document.createElement("section"); 
-let correctTextEl = document.createElement("p");  // Correct or Incorrect goes here
-correctTextEl.id = "correct-text-id";  
-correctEl.innerText = " ";  // displays on screen
-correctEl.appendChild(correctTextEl); 
+correctEl.id = "correct"; 
 wrapperEl.appendChild(correctEl); 
+
+let correctTextEl = document.createElement("p");  // Correct, Incorrect, Done, blank goes here
+correctTextEl.id = "correct-text-id";  
+let globalEl = document.getElementById("global-storage");
+console.log("GlobalEl is " + globalEl.outerHTML); // VERY helpful 
+var correctGlobal = globalEl.getAttribute("correct-indicator"); 
+console.log("Global correct-indicator is " + correctGlobal); 
+correctTextEl.innerText = correctGlobal;  // displays on screen
+correctEl.appendChild(correctTextEl); 
 
 } // end funct renderQuestion
 // --------------------------------------
@@ -103,19 +109,20 @@ function checkAnswer(event) {
 	console.log("Event.target.value = " + correctAns);
 	console.log("Event.target.textContent = " + buttonTextContent);
 	// alert("Checking answer. event.targer.value is " + correctAns); 
+	let globalEl = document.getElementById("global-storage");
+	globalEl.setAttribute("correct-indicator", "Incorrect"); 
 	let correctEl = document.getElementById("correct-text-id");
-	let isCorrect = false; 
 	correctEl.innerText = "Incorrect"; 
 	if (correctAns.trim().toLowerCase() == buttonTextContent.trim().toLowerCase()) {
 		console.log("Answer is correct!"); 
 		correctEl.innerText = "Correct"; 
-		isCorrect = true; 
-		let globalEl = document.getElementById("global-storage");
+		globalEl.setAttribute("correct-indicator", "Correct"); 
 		let currentQuestionIndex = Number(globalEl.getAttribute("question-index"));
 		currentQuestionIndex++;
 		console.log("Next question index is " + currentQuestionIndex);
 		globalEl.setAttribute("question-index", currentQuestionIndex);
-		if (currentQuestionIndex == questions.length) {
+		if (currentQuestionIndex >= questions.length) {
+	        globalEl.setAttribute("correct-indicator", "Done"); 
 			alert("Done with all questions");
 		} else {
 			renderQuestion(questions[currentQuestionIndex]); 
