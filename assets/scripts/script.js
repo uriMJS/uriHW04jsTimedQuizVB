@@ -5,8 +5,9 @@ const choicesIndex = 1;
 const correctIndex = 2;
 
 var questions = createQuestions();
-renderQuestion(questions[0]); /* put question to screen */
-init(); 
+// renderQuestion(questions[0]);  /* put question to screen */
+// init(); 
+renderMain(); 
 
 
 function init() {
@@ -50,15 +51,58 @@ function removeMainWrapperContent( ) {
 
 // display the main screen - topScores and Take Quiz buttons. 
 function renderMain( ) {
-	// variable
-} 
+	removeMainWrapperContent(); 
+	wrapperEl = document.getElementById("removable-main-wrapper"); 
+	wrapperEl.setAttribute("class", "flex-column"); 
+	
+	const hiScoreSectionEl= document.createElement("section");
+	hiScoreSectionEl.id = "high-score-section";
+	wrapperEl.appendChild(hiScoreSectionEl); 
+	
+	const hiScoreButtonEl = document.createElement("button"); 
+	hiScoreButtonEl.id = "high-score-button"; 	
+	hiScoreButtonEl.innerText = "View High Scores"; 
+	hiScoreButtonEl.addEventListener("click", renderScores); 
+	hiScoreSectionEl.appendChild(hiScoreButtonEl); 
+	
+	const takeQuizSectionEl = document.createElement("section");
+	takeQuizSectionEl.id = "take-quiz-section"; 
+	wrapperEl.appendChild(takeQuizSectionEl); 
+	
+	const codingQuizChallengeEl = document.createElement("h3");
+	codingQuizChallengeEl.innerText = "Coding Quiz Challenge";
+	takeQuizSectionEl.appendChild(codingQuizChallengeEl); 
+	
+	const TryEl = document.createElement("h4");
+	TryEl.innerText = "Try to answer the following code related questions within the time limit."
+	takeQuizSectionEl.appendChild(TryEl); 
+
+	const penalizeEl = document.createElement("h4");
+	penalizeEl.innerText = "Incorrect answers will penalize your score by 10 seconds."
+	takeQuizSectionEl.appendChild(penalizeEl); 	
+	
+	const takeQuizEl = document.createElement("button");
+	takeQuizEl.innerText = "Take Quiz";
+	takeQuizEl.addEventListener("click", takeQuiz);
+	takeQuizSectionEl.appendChild(takeQuizEl); 	
+	
+} // end funct renderMain 
+
+// render Scores 
+function renderScores() {
+	alert("Rendering Scores"); 
+}
+
+function takeQuiz() {
+	console.log("Beginning takeQuiz");
+	renderQuestion(questions[0]); 
+}
 
 // display a single question (prompt and choices)
 function renderQuestion(question) {
  
 removeMainWrapperContent(); 
 const wrapperEl = document.getElementById('removable-main-wrapper'); 
-
 var promptEl = document.createElement("section");
 promptEl.id = "prompt";  // about 60% of screen 
 wrapperEl.appendChild(promptEl); 
