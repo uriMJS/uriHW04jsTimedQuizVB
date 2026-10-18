@@ -3,11 +3,15 @@ console.log("Starting script.js for Timed Quiz.");
 const promptIndex = 0;
 const choicesIndex = 1;
 const correctIndex = 2;
-var currentQuestionIndex = 0; 
-
 
 var questions = createQuestions();
-renderQuestion(questions[currentQuestionIndex]); /* put question to screen */
+renderQuestion(questions[0]); /* put question to screen */
+init(); 
+
+
+function init() {
+	globalEl = document.getElementById('DOM-global'); 
+}
 
 
 // Create questions (prompts, choices and correct answer).
@@ -33,16 +37,27 @@ function createQuestions() {
 	return newQuestions; 
 } // end funct createQuestions
 
+// Remove the wrapper div under main, and then recreate it with no content
+function removeMainWrapperContent( ) {
+	const wrapperEl = document.getElementById('removable-main-wrapper');
+	wrapperEl.remove();  // remove wrapper and all elements in it.
+	
+	const mainEl = document.getElementById("main");  // recreate and insert mainWrapper element
+	const newWrapperEl = document.createElement("section");
+	newWrapperEl.id = 'removable-main-wrapper'; 
+	mainEl.appendChild(newWrapperEl); 
+} // end removeMainWrapperContent
+
+// display the main screen - topScores and Take Quiz buttons. 
+function renderMain( ) {
+	// variable
+} 
 
 // display a single question (prompt and choices)
 function renderQuestion(question) {
-var mainEl = document.getElementById("main"); 
-
-var removableEl = document.getElementById("removable-main-wrapper"); 
-removableEl.remove(); // remove element and all children. 
-var wrapperEl = document.createElement("section");
-wrapperEl.id = "removable-main-wrapper"; 
-mainEl.appendChild(wrapperEl); 
+ 
+removeMainWrapperContent(); 
+const wrapperEl = document.getElementById('removable-main-wrapper'); 
 
 var promptEl = document.createElement("section");
 promptEl.id = "prompt";  // about 60% of screen 
@@ -88,7 +103,7 @@ wrapperEl.appendChild(correctEl);
 
 let correctTextEl = document.createElement("p");  // Correct, Incorrect, Done, blank goes here
 correctTextEl.id = "correct-text-id";  
-let globalEl = document.getElementById("global-storage");
+let globalEl = document.getElementById("DOM-globals");
 console.log("GlobalEl is " + globalEl.outerHTML); // VERY helpful 
 var correctGlobal = globalEl.getAttribute("correct-indicator"); 
 console.log("Global correct-indicator is " + correctGlobal); 
@@ -109,7 +124,7 @@ function checkAnswer(event) {
 	console.log("Event.target.value = " + correctAns);
 	console.log("Event.target.textContent = " + buttonTextContent);
 	// alert("Checking answer. event.targer.value is " + correctAns); 
-	let globalEl = document.getElementById("global-storage");
+	let globalEl = document.getElementById("DOM-globals");
 	globalEl.setAttribute("correct-indicator", "Incorrect"); 
 	let correctEl = document.getElementById("correct-text-id");
 	correctEl.innerText = "Incorrect"; 
@@ -118,7 +133,7 @@ function checkAnswer(event) {
 		correctEl.innerText = "Correct"; 
 		globalEl.setAttribute("correct-indicator", "Correct"); 
 		let currentQuestionIndex = Number(globalEl.getAttribute("question-index"));
-		currentQuestionIndex++;
+		currentQuestionIndex++;  // only change question if answer correct (tweak from demo) 
 		console.log("Next question index is " + currentQuestionIndex);
 		globalEl.setAttribute("question-index", currentQuestionIndex);
 		if (currentQuestionIndex >= questions.length) {
