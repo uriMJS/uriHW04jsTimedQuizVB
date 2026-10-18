@@ -55,7 +55,7 @@ function renderMain( ) {
 	wrapperEl = document.getElementById("removable-main-wrapper"); 
 	wrapperEl.setAttribute("class", "flex-column"); 
 	
-	const hiScoreSectionEl= document.createElement("section");
+	const hiScoreSectionEl= document.createElement("section");  // ----- hi score button -----
 	hiScoreSectionEl.id = "high-score-section";
 	wrapperEl.appendChild(hiScoreSectionEl); 
 	
@@ -65,11 +65,11 @@ function renderMain( ) {
 	hiScoreButtonEl.addEventListener("click", renderScores); 
 	hiScoreSectionEl.appendChild(hiScoreButtonEl); 
 	
-	const takeQuizSectionEl = document.createElement("section");
+	const takeQuizSectionEl = document.createElement("section"); // Text n take quiz button 
 	takeQuizSectionEl.id = "take-quiz-section"; 
 	wrapperEl.appendChild(takeQuizSectionEl); 
 	
-	const codingQuizChallengeEl = document.createElement("h3");
+	const codingQuizChallengeEl = document.createElement("h2");
 	codingQuizChallengeEl.innerText = "Coding Quiz Challenge";
 	takeQuizSectionEl.appendChild(codingQuizChallengeEl); 
 	
