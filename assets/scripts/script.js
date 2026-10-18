@@ -103,6 +103,11 @@ function renderQuestion(question) {
  
 removeMainWrapperContent(); 
 const wrapperEl = document.getElementById('removable-main-wrapper'); 
+const timeLeftEl = document.createElement("p");
+timeLeftEl.id = 'time-left'; 
+timeLeftEl.innerText = "Time Left: "; 
+wrapperEl.appendChild(timeLeftEl); 
+
 var promptEl = document.createElement("section");
 promptEl.id = "prompt";  // about 60% of screen 
 wrapperEl.appendChild(promptEl); 
