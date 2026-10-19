@@ -52,6 +52,21 @@ function removeMainWrapperContent( ) {
 	mainEl.appendChild(newWrapperEl); 
 } // end removeMainWrapperContent
 
+// Remove the QA section under the main wrapper div (but NOT the timer), and then recreate it with no content. 
+// This does NOT change the Time Left
+function removeQASectionContent( ) {
+	const QASectionEl = document.getElementById('QA-section');
+	if (QASectionEl != null) {  /* null or undefined. QA section not created until renderQuestion */
+		console.log("Removing QA Section content."); 
+		QASectionEl.remove();  // remove QA section and all elements in it.
+	}
+	// recreate and insert QASection element
+	const wrapperEl = document.getElementById("removable-main-wrapper");  
+	const newQASectionEl = document.createElement("section");
+	newQASectionEl.id = "QA-section"; 
+	wrapperEl.appendChild(newQASectionEl); 
+} // end removeQASectionContent
+
 // display the main screen - topScores and Take Quiz buttons. 
 function renderMain( ) {
 	removeMainWrapperContent(); 
@@ -94,20 +109,22 @@ function renderMain( ) {
 // render Scores 
 function renderScores() {
 	alert("Rendering Scores"); 
-}
+} // end funct renderScores 
 
 function takeQuiz() {
 	console.log("Beginning takeQuiz");
-	timeLeft = maxTime; 
+	
+	let timeLeft = maxTime; 
 	let DOMGlobalsEl = document.getElementById("DOM-globals");
 	DOMGlobalsEl.setAttribute("timeLeft", maxTime); 
 	
+	removeMainWrapperContent(); 
 	/* Put time left element into DOM */ 
-	const mainEl = document.getElementById('main'); 
+	const wrapperEl = document.getElementById('removable-main-wrapper'); 
 	const timeLeftEl = document.createElement("p");
 	timeLeftEl.id = 'time-left'; 
 	timeLeftEl.innerText = "Time Left: " + timeLeft; 
-	mainEl.appendChild(timeLeftEl);
+	wrapperEl.appendChild(timeLeftEl);
 
 	renderQuestion(questions[0]); 
 
@@ -120,28 +137,32 @@ function takeQuiz() {
 		if (timeLeft <= 0) {
 			console.log("Stopping timer");
 			clearInterval(intervalId); 
+			alert("Time is up. Your score will not be recorded.");
+			renderMain(); 
 		}
 	}, 1000) // end setInterval 1000ms => 1 sec
 } // end takeQuiz 
 
-// display a single question (prompt and choices)
+// display a single question (prompt, choices, msg)
 function renderQuestion(question) {
- 
-removeMainWrapperContent();  /* but dont remove TimeLeft element */ 
-const wrapperEl = document.getElementById('removable-main-wrapper');  
-	
+
+/* Alternative would be to remove TimeLeft and then recreate it */  
+removeQASectionContent();  /* but dont remove TimeLeft element */ 
+const QASectionEl = document.getElementById('QA-section');  
+
+// Display the question prompt -------------------
 var promptEl = document.createElement("section");
 promptEl.id = "prompt";  // about 60% of screen 
-wrapperEl.appendChild(promptEl); 
+QASectionEl.appendChild(promptEl); 
 
 var promptTextEl = document.createElement("p");
 promptTextEl.innerText = question[promptIndex]; 
 promptEl.appendChild(promptTextEl);
 
-// Now display the choices 
+// Now display the choices -------------
 var choicesEl = document.createElement("section");
 choicesEl.id = "choices";   // 3 or 4 possible answers to prompt 
-wrapperEl.appendChild(choicesEl); 
+QASectionEl.appendChild(choicesEl); 
 
 var divEl = null;
 var currentChoice = null; 
@@ -168,9 +189,10 @@ for (let choiceText of choiceArray) {
 	divEl.appendChild(currentChoice);  
 } // end for-of choiceArray
 
+// Now display the msg (starting, correct, incorrect, done, etc.) ---------
 var correctEl = document.createElement("section"); 
 correctEl.id = "correct"; 
-wrapperEl.appendChild(correctEl); 
+QASectionEl.appendChild(correctEl); 
 
 let correctTextEl = document.createElement("p");  // Starting, Correct, Incorrect, Done, blank goes here
 correctTextEl.id = "correct-text-id";  
