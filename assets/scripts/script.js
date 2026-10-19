@@ -4,6 +4,8 @@ const promptIndex = 0;
 const choicesIndex = 1;
 const correctIndex = 2;
 
+const maxTime = 10;  // in seconds 
+
 var questions = createQuestions();
 // renderQuestion(questions[0]);  /* put question to screen */
 // init(); 
@@ -38,7 +40,8 @@ function createQuestions() {
 	return newQuestions; 
 } // end funct createQuestions
 
-// Remove the wrapper div under main, and then recreate it with no content
+// Remove the wrapper div under main, and then recreate it with no content. 
+// This does NOT change the Time Left
 function removeMainWrapperContent( ) {
 	const wrapperEl = document.getElementById('removable-main-wrapper');
 	wrapperEl.remove();  // remove wrapper and all elements in it.
@@ -95,19 +98,38 @@ function renderScores() {
 
 function takeQuiz() {
 	console.log("Beginning takeQuiz");
+	timeLeft = maxTime; 
+	let DOMGlobalsEl = document.getElementById("DOM-globals");
+	DOMGlobalsEl.setAttribute("timeLeft", maxTime); 
+	
+	/* Put time left element into DOM */ 
+	const mainEl = document.getElementById('main'); 
+	const timeLeftEl = document.createElement("p");
+	timeLeftEl.id = 'time-left'; 
+	timeLeftEl.innerText = "Time Left: " + timeLeft; 
+	mainEl.appendChild(timeLeftEl);
+
 	renderQuestion(questions[0]); 
-}
+
+    const intervalId = setInterval(() => {
+		DOMGlobalsEl.setAttribute("intervalId", intervalId);
+		timeLeft = DOMGlobalsEl.getAttribute("timeLeft") - 1; 
+		console.log("Time left = " + timeLeft); 
+		DOMGlobalsEl.setAttribute("timeLeft", timeLeft); 
+		timeLeftEl.innerText = "Time Left: " + timeLeft; 
+		if (timeLeft <= 0) {
+			console.log("Stopping timer");
+			clearInterval(intervalId); 
+		}
+	}, 1000) // end setInterval 1000ms => 1 sec
+} // end takeQuiz 
 
 // display a single question (prompt and choices)
 function renderQuestion(question) {
  
-removeMainWrapperContent(); 
-const wrapperEl = document.getElementById('removable-main-wrapper'); 
-const timeLeftEl = document.createElement("p");
-timeLeftEl.id = 'time-left'; 
-timeLeftEl.innerText = "Time Left: "; 
-wrapperEl.appendChild(timeLeftEl); 
-
+removeMainWrapperContent();  /* but dont remove TimeLeft element */ 
+const wrapperEl = document.getElementById('removable-main-wrapper');  
+	
 var promptEl = document.createElement("section");
 promptEl.id = "prompt";  // about 60% of screen 
 wrapperEl.appendChild(promptEl); 
@@ -150,7 +172,7 @@ var correctEl = document.createElement("section");
 correctEl.id = "correct"; 
 wrapperEl.appendChild(correctEl); 
 
-let correctTextEl = document.createElement("p");  // Correct, Incorrect, Done, blank goes here
+let correctTextEl = document.createElement("p");  // Starting, Correct, Incorrect, Done, blank goes here
 correctTextEl.id = "correct-text-id";  
 let globalEl = document.getElementById("DOM-globals");
 console.log("GlobalEl is " + globalEl.outerHTML); // VERY helpful 
@@ -188,6 +210,8 @@ function checkAnswer(event) {
 		if (currentQuestionIndex >= questions.length) {
 	        globalEl.setAttribute("correct-indicator", "Done"); 
 			alert("Done with all questions");
+			const intervalId = globalEl.getAttribute("intervalId");
+			clearInterval(intervalId); 
 		} else {
 			renderQuestion(questions[currentQuestionIndex]); 
 		} 
