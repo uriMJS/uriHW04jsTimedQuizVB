@@ -4,7 +4,8 @@ const promptIndex = 0;
 const choicesIndex = 1;
 const correctIndex = 2;
 
-const maxTime = 10;  // in seconds 
+const maxTime = 10;       // in seconds
+const wrongPenalty = 5;   // Penalty for wrong answers 
 
 var questions = createQuestions();
 // renderQuestion(questions[0]);  /* put question to screen */
@@ -237,6 +238,12 @@ function checkAnswer(event) {
 		} else {
 			renderQuestion(questions[currentQuestionIndex]); 
 		} 
-	} // end if answerIsCorrect
+	} else {  // answer wrong 
+		let timeLeft = globalEl.getAttribute("timeLeft"); 
+		timeLeft = timeLeft - wrongPenalty; 
+		globalEl.setAttribute("timeLeft", timeLeft); 
+		let timeLeftEl = document.getElementById("time-left"); 
+		timeLeftEl.innerText = "Time Left: " + timeLeft; 
+	} // end if-else answerIsCorrect
 } // end function checkAnswer
 
