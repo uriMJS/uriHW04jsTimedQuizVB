@@ -20,25 +20,34 @@ function init() {
 
 // Create questions (prompts, choices and correct answer).
 function createQuestions() {
-	let newQuestions = [];
+	let questionsArray = [];
 	let question = []; 
 	let prompt;
 	let choices;
 	let correct; 
-	prompt = ["Please answer question1."];
-	choices = ["Ans1", "Ans2", "Ans3", "Ans4"];
-	correct = ["Ans1"]; 
-	question.push(prompt, choices, correct);  // returns new array length
+    prompt = "Commonly used data types do NOT include: ";
+    choices = ["strings", "booleans", "alerts", "numbers"];
+    correct = "alerts";
+    question = [prompt, choices, correct];  // cant reassign to a constant.
 	// console.log("First question=" + question); 
-	newQuestions.push(question); 
-	question = [];  // -----------------------------------------
-	prompt = ["Please answer question2."];
-	choices = ["Ans1", "Ans2", "Ans3", "Ans4"];
-	correct = ["Ans2"]; 	
-	question.push(prompt, choices, correct); 
-	newQuestions.push(question);
-	// console.log("questions length " + newQuestions.length + " Questions=" + newQuestions); 
-	return newQuestions; 
+    questionsArray.push(question);
+    prompt = "Arrays in javascript can be used to store: ";
+    choices = ["numbers and strings", "other arrays", "booleans", "all of the above"];
+    correct = "all of the above";
+    question = [prompt, choices, correct];
+    questionsArray.push(question);
+    prompt = "String values must be enclosed in _________ when being assigned to variables";
+    choices = ["commas", "curley brackets", "quotes", "parenthesis", "slashes"];
+    correct = "quotes";
+    question = [prompt, choices, correct];
+    questionsArray.push(question);    
+    prompt = "A very useful tool during development and debugging for printing values is";
+    choices = ["JavaScript", "terminal/bash", "for loops", "console.log"];
+    correct = "console.log";
+    question = [prompt, choices, correct];
+    // questionsArray.push(question);    
+	// console.log("questions length " + questionsArray.length + " Questions=" + questionsArray); 
+	return questionsArray; 
 } // end funct createQuestions
 
 // Remove the wrapper div under main, and then recreate it with no content. 
