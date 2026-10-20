@@ -90,7 +90,7 @@ function renderMain( ) {
 	const hiScoreButtonEl = document.createElement("button"); 
 	hiScoreButtonEl.id = "high-score-button"; 	
 	hiScoreButtonEl.innerText = "View High Scores"; 
-	hiScoreButtonEl.addEventListener("click", renderScores); 
+	hiScoreButtonEl.addEventListener("click", renderHiScores); 
 	hiScoreSectionEl.appendChild(hiScoreButtonEl); 
 	
 	const takeQuizSectionEl = document.createElement("section"); // Text n take quiz button 
@@ -116,19 +116,14 @@ function renderMain( ) {
 	
 } // end funct renderMain 
 
-// render Scores 
-function renderScores() {
-	alert("Rendering Scores"); 
-	removeMainWrapperContent(); 
-	
-} // end funct renderScores 
-
 function takeQuiz() {
 	console.log("Beginning takeQuiz");
 	
 	let timeLeft = maxTime; 
 	let DOMGlobalsEl = document.getElementById("DOM-globals");
 	DOMGlobalsEl.setAttribute("timeLeft", maxTime); 
+	DOMGlobalsEl.setAttribute("question-index", "0");
+	DOMGlobalsEl.setAttribute("correct-indicator", "Timer Ticking ... Awaiting Answer"); 
 	
 	removeMainWrapperContent(); 
 	/* Put time left element into DOM */ 
@@ -140,6 +135,7 @@ function takeQuiz() {
 
 	renderQuestion(questions[0]); 
 
+	/* Will throw warning when waiting for user input (aka alert) in Edge - [Violation] 'setInterval' handler took 9146ms */ 
     const intervalId = setInterval(() => {
 		DOMGlobalsEl.setAttribute("intervalId", intervalId);
 		timeLeft = DOMGlobalsEl.getAttribute("timeLeft") - 1; 
@@ -148,7 +144,9 @@ function takeQuiz() {
 		timeLeftEl.innerText = "Time Left: " + timeLeft; 
 		if (timeLeft <= 0) {
 			console.log("Stopping timer");
-			clearInterval(intervalId); 
+			// Results in Edge warning [violation] even with alert after clearInterval. It seems these violations occur often 
+			// when they are not really problems. 
+			clearInterval(intervalId);  
 			alert("Time is up. Your score will not be recorded.");
 			renderMain(); 
 		}
@@ -219,6 +217,9 @@ correctEl.appendChild(correctTextEl);
 // --------------------------------------
 
 // When users clicks an answer, check if correct. If so check if done. If not display next question. 
+// Results in a warning that this method takes about 1.8 seconds, at least when quiz oompleted sucessfully, 
+// and waiting for alert user-click.  
+// This isn't a problem, since we expect to wait on this handler when it has an alert. 
 function checkAnswer(event) { 
 	event.preventDefault();
 	console.log("Event is " + event); 
@@ -265,47 +266,42 @@ function renderEnterName(timeLeft) {
 	const wrapperEl = document.getElementById("removable-main-wrapper");
 	wrapperEl.setAttribute("class", "flex-column"); 
 	
-	// Put this in a form, even though no submit button. 
+	// Tried putting this in a form, even though no submit button. 
+	// This lead to the program being reloaded, once the button is clicked and the 
+	// event handler ends. 
 	const formEl = document.createElement("form");
 	formEl.setAttribute("class", "flex-column"); 
-	wrapperEl.appendChild(formEl); 
+	// wrapperEl.appendChild(formEl); 
 	
 	const labelEl = document.createElement("label");
 	labelEl.innerText = "You scored a " + timeLeft + ". Enter Your Name";  // setAttribute wont work here
 	labelEl.setAttribute("for", "nameInput"); 
 	console.log("Label Element is " + labelEl.outerHTML); 
-	formEl.appendChild(labelEl);	
-	
+	wrapperEl.appendChild(labelEl); // 
+	// formEl.appendChild(labelEl);	
+		
 	const promptEl = document.createElement("input");
 	promptEl.id = "nameInput"; 
 	promptEl.setAttribute("type", "text");
 	promptEl.setAttribute("maxlength", "30"); 
 	promptEl.setAttribute("name", "Your Name"); 
 	promptEl.defaultValue = "Your Name"; 
-	formEl.appendChild(promptEl);
+	wrapperEl.appendChild(promptEl); // 
+	// formEl.appendChild(promptEl);
 	
 	const submitBtnEl = document.createElement("button");  // not really a submit button, just a button
 	submitBtnEl.innerText = "Submit";
 	submitBtnEl.id = "submitBtn";
 	submitBtnEl.addEventListener("click", updateHiScores);
-	formEl.appendChild(submitBtnEl); 
-}	// end funct renderEnterName(); 
+	wrapperEl.appendChild(submitBtnEl); // 
+	// formEl.appendChild(submitBtnEl); 
+} // end funct renderEnterName(); 
 
-// get hiScores from local storage ... update 
-function updateHiScores(ev) {
-	let nameInput = document.getElementById("nameInput").value; 
-	if (nameInput.length == 0) {
-		nameInput = "PersonWithNoName"; 
-	}
-	let globalEl = document.getElementById('DOM-global'); 
-	let score = globalEl.getAttribute("timeLeft"); 
-	
-	alert("Updating hi scores for " + nameInput + " Score: " + score); 
-	let newEntry = [nameInput, score]; 
-	let scoreArray = [];
-	
-	let hiScores = localStorage.getItem("hiScores");
-	if (!hiScores) {
-		localStorage.setItem("hiScores", scoreArray.push(newEntry));
-	}
-} // end funct updateHiScores
+
+function logArray(inArray) {
+	console.log("Logging array of size: " + inArray.length); 
+	inArray.forEach((item) => {
+	 	console.log(item); 
+	}) 	
+	console.log(""); 
+} // end funct logArray 

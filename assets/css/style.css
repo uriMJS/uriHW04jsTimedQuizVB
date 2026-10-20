@@ -4,7 +4,7 @@
 	width: 80%;  /* works */ 
 	margin: auto;  /* horizontally aligns child */ 
 	/* text-align: center;  only aligns text, not box */ 
-	background-color: blue;
+	background-color: powderblue;
 }
 #prompt {
 	/* width: 90%;  */ 
@@ -20,7 +20,8 @@
 	/* background-color: red;  */ 
 } 
 .btn {
-	background-color: purple;  /* per demo */ 
+	background-color: purple;  /* per demo - no light purple */ 
+	color: white; 
 	margin: 1vw;  /* outside Button */
 	/* padding: 1vw: /* inside button - will overrid border-radius */ 
 	border-radius: 8vw;  /* overriden by padding?? */ 
