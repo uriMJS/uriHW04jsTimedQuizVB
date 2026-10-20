@@ -8,48 +8,9 @@ const maxTime = 10;       // in seconds
 const wrongPenalty = 5;   // Penalty for wrong answers 
 
 var questions = createQuestions();
-// renderQuestion(questions[0]);  /* put question to screen */
-// init(); 
-renderMain(); 
+renderMain();  // Welcome screen with BeginQuiz and HighScore buttons.
 
-
-function init() {
-	globalEl = document.getElementById('DOM-global'); 
-}
-
-
-// Create questions (prompts, choices and correct answer).
-function createQuestions() {
-	let questionsArray = [];
-	let question = []; 
-	let prompt;
-	let choices;
-	let correct; 
-    prompt = "Commonly used data types do NOT include: ";
-    choices = ["strings", "booleans", "alerts", "numbers"];
-    correct = "alerts";
-    question = [prompt, choices, correct];  // cant reassign to a constant.
-	// console.log("First question=" + question); 
-    questionsArray.push(question);
-    prompt = "Arrays in javascript can be used to store: ";
-    choices = ["numbers and strings", "other arrays", "booleans", "all of the above"];
-    correct = "all of the above";
-    question = [prompt, choices, correct];
-    questionsArray.push(question);
-    prompt = "String values must be enclosed in _________ when being assigned to variables";
-    choices = ["commas", "curley brackets", "quotes", "parenthesis", "slashes"];
-    correct = "quotes";
-    question = [prompt, choices, correct];
-    questionsArray.push(question);    
-    prompt = "A very useful tool during development and debugging for printing values is";
-    choices = ["JavaScript", "terminal/bash", "for loops", "console.log"];
-    correct = "console.log";
-    question = [prompt, choices, correct];
-    // questionsArray.push(question);    
-	// console.log("questions length " + questionsArray.length + " Questions=" + questionsArray); 
-	return questionsArray; 
-} // end funct createQuestions
-
+// ----------------- Called Methods Below This Line ----------------------
 // Remove the wrapper div under main, and then recreate it with no content. 
 // This does NOT change the Time Left
 function removeMainWrapperContent( ) {
@@ -116,6 +77,7 @@ function renderMain( ) {
 	
 } // end funct renderMain 
 
+// Set DOM globals, insert timeLeft element, render first question.  timer-setInterval also begun. 
 function takeQuiz() {
 	console.log("Beginning takeQuiz");
 	
@@ -133,9 +95,10 @@ function takeQuiz() {
 	timeLeftEl.innerText = "Time Left: " + timeLeft; 
 	wrapperEl.appendChild(timeLeftEl);
 
-	renderQuestion(questions[0]); 
+	renderQuestion(questions[0]);  // display prompt and choice buttons 
 
-	/* Will throw warning when waiting for user input (aka alert) in Edge - [Violation] 'setInterval' handler took 9146ms */ 
+	/* Will throw warning when waiting for user input (aka alert) in Edge - [Violation] 'setInterval' handler took 9146ms */
+	/* These are caused by alerts, and should be ignored */ 
     const intervalId = setInterval(() => {
 		DOMGlobalsEl.setAttribute("intervalId", intervalId);
 		timeLeft = DOMGlobalsEl.getAttribute("timeLeft") - 1; 
@@ -244,7 +207,7 @@ function checkAnswer(event) {
 		globalEl.setAttribute("question-index", currentQuestionIndex);
 		if (currentQuestionIndex >= questions.length) {
 	        globalEl.setAttribute("correct-indicator", "Done"); 
-			alert("Done with all questions");
+			// alert("Done with all questions");
 			const intervalId = globalEl.getAttribute("intervalId");
 			clearInterval(intervalId); 
 			renderEnterName(globalEl.getAttribute("timeLeft"));
@@ -297,7 +260,39 @@ function renderEnterName(timeLeft) {
 	// formEl.appendChild(submitBtnEl); 
 } // end funct renderEnterName(); 
 
+// Create questions (prompts, choices and correct answer).
+function createQuestions() {
+	let questionsArray = [];
+	let question = []; 
+	let prompt;
+	let choices;
+	let correct; 
+    prompt = "Commonly used data types do NOT include: ";
+    choices = ["strings", "booleans", "alerts", "numbers"];
+    correct = "alerts";
+    question = [prompt, choices, correct];  // cant reassign to a constant.
+	// console.log("First question=" + question); 
+    questionsArray.push(question);
+    prompt = "Arrays in javascript can be used to store: ";
+    choices = ["numbers and strings", "other arrays", "booleans", "all of the above"];
+    correct = "all of the above";
+    question = [prompt, choices, correct];
+    questionsArray.push(question);
+    prompt = "String values must be enclosed in _________ when being assigned to variables";
+    choices = ["commas", "curley brackets", "quotes", "parenthesis", "slashes"];
+    correct = "quotes";
+    question = [prompt, choices, correct];
+    questionsArray.push(question);    
+    prompt = "A very useful tool during development and debugging for printing values is";
+    choices = ["JavaScript", "terminal/bash", "for loops", "console.log"];
+    correct = "console.log";
+    question = [prompt, choices, correct];
+    // questionsArray.push(question);    
+	// console.log("questions length " + questionsArray.length + " Questions=" + questionsArray); 
+	return questionsArray; 
+} // end funct createQuestions
 
+// helper method 
 function logArray(inArray) {
 	console.log("Logging array of size: " + inArray.length); 
 	inArray.forEach((item) => {
