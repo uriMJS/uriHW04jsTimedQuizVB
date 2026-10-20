@@ -119,6 +119,8 @@ function renderMain( ) {
 // render Scores 
 function renderScores() {
 	alert("Rendering Scores"); 
+	removeMainWrapperContent(); 
+	
 } // end funct renderScores 
 
 function takeQuiz() {
@@ -244,6 +246,7 @@ function checkAnswer(event) {
 			alert("Done with all questions");
 			const intervalId = globalEl.getAttribute("intervalId");
 			clearInterval(intervalId); 
+			renderEnterName(globalEl.getAttribute("timeLeft"));
 		} else {
 			renderQuestion(questions[currentQuestionIndex]); 
 		} 
@@ -256,3 +259,39 @@ function checkAnswer(event) {
 	} // end if-else answerIsCorrect
 } // end function checkAnswer
 
+// render Enter Name function 
+function renderEnterName(timeLeft) {
+	removeMainWrapperContent();
+	const wrapperEl = document.getElementById("removable-main-wrapper");
+	wrapperEl.setAttribute("class", "flex-column"); 
+	
+	// Put this in a form, even though no submit button. 
+	const formEl = document.createElement("form");
+	formEl.setAttribute("class", "flex-column"); 
+	wrapperEl.appendChild(formEl); 
+	
+	const labelEl = document.createElement("label");
+	labelEl.innerText = "You scored a " + timeLeft + ". Enter Your Name";  // setAttribute wont work here
+	labelEl.setAttribute("for", "nameInput"); 
+	console.log("Label Element is " + labelEl.outerHTML); 
+	formEl.appendChild(labelEl);	
+	
+	const promptEl = document.createElement("input");
+	promptEl.id = "nameInput"; 
+	promptEl.setAttribute("type", "text");
+	promptEl.setAttribute("maxlength", "30"); 
+	promptEl.setAttribute("name", "Your Name"); 
+	promptEl.defaultValue = "Your Name"; 
+	formEl.appendChild(promptEl);
+	
+	const submitBtnEl = document.createElement("button");  // not really a submit button, just a button
+	submitBtnEl.innerText = "Submit";
+	submitBtnEl.id = "submitBtn";
+	submitBtnEl.addEventListener("click", updateHiScores);
+	formEl.appendChild(submitBtnEl); 
+}	// renderMain(); 
+
+function updateHiScores(ev) {
+	alert("Updating hi scores for " + document.getElementById("nameInput").value); 
+	alert("update hi scores"); 
+}
