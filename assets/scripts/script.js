@@ -289,9 +289,23 @@ function renderEnterName(timeLeft) {
 	submitBtnEl.id = "submitBtn";
 	submitBtnEl.addEventListener("click", updateHiScores);
 	formEl.appendChild(submitBtnEl); 
-}	// renderMain(); 
+}	// end funct renderEnterName(); 
 
+// get hiScores from local storage ... update 
 function updateHiScores(ev) {
-	alert("Updating hi scores for " + document.getElementById("nameInput").value); 
-	alert("update hi scores"); 
-}
+	let nameInput = document.getElementById("nameInput").value; 
+	if (nameInput.length == 0) {
+		nameInput = "PersonWithNoName"; 
+	}
+	let globalEl = document.getElementById('DOM-global'); 
+	let score = globalEl.getAttribute("timeLeft"); 
+	
+	alert("Updating hi scores for " + nameInput + " Score: " + score); 
+	let newEntry = [nameInput, score]; 
+	let scoreArray = [];
+	
+	let hiScores = localStorage.getItem("hiScores");
+	if (!hiScores) {
+		localStorage.setItem("hiScores", scoreArray.push(newEntry));
+	}
+} // end funct updateHiScores
