@@ -65,7 +65,7 @@ function renderHiScores( ) {
 	if (scoreArray && (scoreArray.length > 0)) {
 		msg = "High Scores (" + scoreArray.length + ")"; 
 	}
-	msgEl.innerText = msg;
+	msgEl.innerHTML = "<b>" + msg + "</b>";
 	wrapperEl.appendChild(msgEl); 
 	scoreArray.forEach((item) => {
 		let scoreEl = document.createElement("p");

@@ -17,6 +17,7 @@
 }
 #removable-main-wrapper {
 	background-color: var(--bg-color);
+	width: 100%; 
 	gap: 2vw; 
 	padding: 2vw; 
 }
