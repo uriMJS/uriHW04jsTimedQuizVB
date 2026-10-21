@@ -8,11 +8,11 @@
 }
 #main {
 	display: flex;  /* up-down - Got rid of old block */ 
-	flex-direction: column;  /* up-down */ 
+	flex-direction: column;  /* up-down */
+	justify-content: left; 
+	align-items: center; 	
 	width: 80%;  /* works with margin: auto */ 
 	margin: auto;  /* horizontally aligns child */ 
-	justify-content: left; 
-	align-items: center; 
 	/* text-align: center;  only aligns text, not box */ 
 }
 #removable-main-wrapper {

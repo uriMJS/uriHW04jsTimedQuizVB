@@ -63,7 +63,7 @@ function renderHiScores( ) {
 	let msgEl = document.createElement("h3");
 	let msg = "No Hi Scores Yet";
 	if (scoreArray && (scoreArray.length > 0)) {
-		msg = "There are " + scoreArray.length + " hi scores.";
+		msg = "High Scores (" + scoreArray.length + ")"; 
 	}
 	msgEl.innerText = msg;
 	wrapperEl.appendChild(msgEl); 
