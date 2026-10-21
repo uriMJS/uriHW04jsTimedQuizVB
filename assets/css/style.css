@@ -1,10 +1,24 @@
-/* MJS 10.15.26: style.css for Timed Quiz Project */ 
+/* MJS 10.15.26: style.css for Timed Quiz Project */
+:root {
+		--bg-color: powderblue;  /* global value */ 
+} 
+#header {
+	text-align: center;
+	/* background-color: pink; */ 
+}
 #main {
-	display: block;  /* up-down */ 
-	width: 80%;  /* works */ 
+	display: flex;  /* up-down - Got rid of old block */ 
+	flex-direction: column;  /* up-down */ 
+	width: 80%;  /* works with margin: auto */ 
 	margin: auto;  /* horizontally aligns child */ 
+	justify-content: left; 
+	align-items: center; 
 	/* text-align: center;  only aligns text, not box */ 
-	background-color: powderblue;
+}
+#removable-main-wrapper {
+	background-color: var(--bg-color);
+	gap: 2vw; 
+	padding: 2vw; 
 }
 #prompt {
 	/* width: 90%;  */ 
@@ -23,8 +37,8 @@
 	background-color: purple;  /* per demo - no light purple */ 
 	color: white; 
 	margin: 1vw;  /* outside Button */
-	/* padding: 1vw: /* inside button - will overrid border-radius */ 
-	border-radius: 8vw;  /* overriden by padding?? */ 
+	padding: 1vw; /* inside button - will overrid border-radius */ 
+	border-radius: 3vw;  /* overriden by padding?? */ 
 } 
 .flex-column {
 	display:flex;
@@ -45,5 +59,5 @@
 	align-items: center;    /* along 2ndary axis */ 
 	/* gap: 1vw;   			/* overrides margin */
 	padding: 2vw;           /* inside of this section */ 
-	background-color: pink; 
+	background-color: var(--bg-color); 
 }

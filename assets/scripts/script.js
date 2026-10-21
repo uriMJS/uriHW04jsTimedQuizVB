@@ -1,5 +1,6 @@
-/* Script.js file for dynamic js Timed Quiz */ 
+/* Script.js file for dynamic js Timed Quiz by Michael Sheliga */ 
 console.log("Starting script.js for Timed Quiz.");
+/* Question indices. Alternative would be to make a question an object */ 
 const promptIndex = 0;
 const choicesIndex = 1;
 const correctIndex = 2;
@@ -49,7 +50,7 @@ function renderMain( ) {
 	wrapperEl.appendChild(hiScoreSectionEl); 
 	
 	const hiScoreButtonEl = document.createElement("button"); 
-	hiScoreButtonEl.id = "high-score-button"; 	
+	hiScoreButtonEl.id = "high-score-button"; 
 	hiScoreButtonEl.innerText = "View High Scores"; 
 	hiScoreButtonEl.addEventListener("click", renderHiScores); 
 	hiScoreSectionEl.appendChild(hiScoreButtonEl); 
@@ -71,6 +72,7 @@ function renderMain( ) {
 	takeQuizSectionEl.appendChild(penalizeEl); 	
 	
 	const takeQuizEl = document.createElement("button");
+	takeQuizEl.setAttribute("class", "btn"); 
 	takeQuizEl.innerText = "Take Quiz";
 	takeQuizEl.addEventListener("click", takeQuiz);
 	takeQuizSectionEl.appendChild(takeQuizEl); 	
