@@ -149,14 +149,15 @@ for (let choiceText of choiceArray) {
 	currentChoice = document.createElement("button"); 
 	currentChoice.setAttribute("class", "btn");  // must use setAttribute, not elem.class 
 	// See https://www.xjavascript.com/blog/how-to-set-onclick-with-javascript/ for event handling tutorial.
-	// 3 Ways to add event handler. 
-	// 1. In-line => in html (likley not possible here), 2. Property assignment => elem.onclick, 3. addEventListener.
+	// 4 Ways to add event handler. 
+	// 1. In-line => in html (likley not possible here), 2. Set Attribute 3. Property assignment => elem.onclick, 4. addEventListener.
 	// event automatically passed to elem.onclick and addEventListener.
-	// parenthesis - for in-line only. For elem.onclick and addEventListener using parenthesis will execute immediately.
-	// quotes - for in-line only.  Reference used for elem.onclick and addEventListener 
-	// currentChoice.onclick = checkAnswer;  // This works
+	// parenthesis - for in-line and setAttribute. For elem.onclick and addEventListener using parenthesis will execute immediately.
+	// quotes - for in-line and setAttribute.  Reference used for elem.onclick and addEventListener 
 	// setAtrribute parenthesis + quotes executes checkAnswer method, also need event. (Its a hack, this.value undefined).
-	// currentChoice.setAttribute("onclick", "checkAnswer(event)");  // This works. NOT onClick no capital C 
+	// 2. currentChoice.setAttribute("onclick", "checkAnswer(event)");  // This works. NOT onClick no capital C 
+	// 3. currentChoice.onclick = checkAnswer 
+	// 4. currentChoice.onclick = checkAnswer;  // This works
 	currentChoice.addEventListener("click", checkAnswer);  // Also works
 	currentChoice.value = correctAnswer;  // submission value (also correct ans).
 	currentChoice.textContent = choiceText;  // display value 
