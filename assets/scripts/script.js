@@ -68,7 +68,7 @@ function renderMain( ) {
 	takeQuizSectionEl.appendChild(TryEl); 
 
 	const penalizeEl = document.createElement("h4");
-	penalizeEl.innerText = "Incorrect answers will penalize your score by 10 seconds."
+	penalizeEl.innerText = "Incorrect answers will penalize your score by " + wrongPenalty + " seconds."
 	takeQuizSectionEl.appendChild(penalizeEl); 	
 	
 	const takeQuizEl = document.createElement("button");
