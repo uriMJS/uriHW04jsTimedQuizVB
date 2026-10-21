@@ -21,19 +21,35 @@ function updateHiScores(ev) {
 	// scoreArray.push(newEntry);  // twice for now for debugging
 	logArray(scoreArray); 
 	
-	// If hiScores isnt JSON, this will fail. Soln => delete localStorage hiScores. 
+	// If hiScores isnt JSON, this will fail. No easySoln => delete localStorage hiScores. 
 	let hiScores = JSON.parse(localStorage.getItem("hiScores"));
 	console.log("HiScores from localStorage is " + hiScores); 
 	if (!hiScores) {
 		console.log("Adding first hiScore "); 
 		localStorage.setItem("hiScores", JSON.stringify(scoreArray));
 	} else {
-		hiScores.push(newEntry);
+		insertHiScore(hiScores, newEntry);
+		// hiScores.push(newEntry);
 		localStorage.setItem("hiScores", JSON.stringify(hiScores));
 	} 
 	console.log("Done updating HiScores in local Storage ... ");  
 	renderHiScores(); 
 } // end funct updateHiScores
+
+// insertHiScore - insert into ordered array using splice
+function insertHiScore(hiScoreArray, newEntry) { 
+	console.log("Inserting high score " + newEntry); 
+	let insertAt = 0; 
+	let newScore = newEntry.score; 
+	for (let i=0; i < hiScoreArray.length; i++) {
+		let currentScore = hiScoreArray[i].score;
+		console.log("NewScore: " + newScore + " Current " + currentScore); 
+		if (newScore <= currentScore) {
+			insertAt++; 
+		} 
+	}
+	hiScoreArray.splice(insertAt, 0, newEntry); 
+} // end funct insertHiScore
 
 // display hiScores from localStorage on the screen 
 function renderHiScores( ) {
