@@ -40,6 +40,11 @@
 	margin: 1vw;  /* outside Button */
 	padding: 1vw; /* inside button - will overrid border-radius */ 
 	border-radius: 3vw;  /* overriden by padding?? */ 
+}
+/* put after button in css file, so that this bg-color overrides bg-color in btn  */
+/* Great example of how css values overwrite eachother. */ 
+.bg-gray {   /* alternative: repeat .btn properties, after making them all vars() */ 
+	background-color: gray; 
 } 
 .flex-column {
 	display:flex;

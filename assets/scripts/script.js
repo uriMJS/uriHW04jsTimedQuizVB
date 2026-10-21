@@ -190,7 +190,8 @@ function checkAnswer(event) {
 	console.log("Event is " + event); 
 	// this seems to be "[object HTMLbuttonElement]" 
 	console.log("Checking Answer: this.value = " + this.value); 
-	let correctAns = event.target.value;
+	let buttonClicked = event.target;
+	let correctAns = buttonClicked.value;
 	let buttonTextContent = event.target.textContent;
 	console.log("Event.target.value = " + correctAns);
 	console.log("Event.target.textContent = " + buttonTextContent);
@@ -222,6 +223,11 @@ function checkAnswer(event) {
 		globalEl.setAttribute("timeLeft", timeLeft); 
 		let timeLeftEl = document.getElementById("time-left"); 
 		timeLeftEl.innerText = "Time Left: " + timeLeft; 
+		 // any 2nd value here, even false, will disable button. Must removeAttribute to re-enable. 
+		buttonClicked.setAttribute("disabled", "disabled"); 
+		buttonClicked.textContent = "Nope"; 
+		// could style.backgroundColor = "gray" here but violates having css properties in code
+		buttonClicked.setAttribute("class", "btn bg-gray");  // order here doesnt matter. Order in css does.
 	} // end if-else answerIsCorrect
 } // end function checkAnswer
 
@@ -294,7 +300,12 @@ function createQuestions() {
 	return questionsArray; 
 } // end funct createQuestions
 
-// helper method 
+// helper methods ------------------------
+
+/* function myLog(tring") {
+	console.log(
+*/ 
+// show an array (length and each item  
 function logArray(inArray) {
 	console.log("Logging array of size: " + inArray.length); 
 	inArray.forEach((item) => {
