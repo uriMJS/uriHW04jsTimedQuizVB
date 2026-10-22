@@ -38,10 +38,10 @@ This project was long, with a few tricky bugs.
  
 **To Learn From**  
    - LocalStorage  
-     - Used LocalStorage to Keep HiScores  
-        - .removeItem, .setItem, .getItem	 
-     - Must Store Strings in LocalStorage => JSON.stringify  
-     - Need Array out of LocalStorage => JSON.parse  
+      - Used LocalStorage to Keep HiScores  
+         - .removeItem, .setItem, .getItem	 
+      - Must Store Strings in LocalStorage => JSON.stringify  
+      - Need Array out of LocalStorage => JSON.parse  
    - Disabled button with button.setAttribute("disabled", "disabled")  
       - Second values does NOT matter here. 
 	  - Use button.removeAttribute("disabled") to enable.
@@ -53,7 +53,7 @@ This project was long, with a few tricky bugs.
       - LocalStorage. Found and deletable under Attributes tab.  
 	  - CSS values. Can find striken DOM properties, such as margin, but not why they were striken.
 	  
-## Notes
+## Notes  
 No starter code (index.html, style.css, script.js and a .png file) for this project.   
 **All code, including CSS written from scratch.**    
 The programming was pretty straight-forward, but long. Lots of adding elements to DOM.   
@@ -67,7 +67,7 @@ Deployment: To create githubio deployment
       - Click on Source -> Deploy From a Branch (near screen center)  
 	  - Click on Branch -> main: root (just below Source)  
 
-## Acceptance Criteria
+## Acceptance Criteria  
 	Click the start button: timer starts and I am presented with a question  
 	answer a question, presented with another question
 	answer a question incorrectly, time (15) is subtracted from the clock

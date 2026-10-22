@@ -1,5 +1,5 @@
 /* Script.js file for dynamic js Timed Quiz by Michael Sheliga */ 
-console.log("Starting script.js for Timed Quiz.");
+myLog("Starting script.js for Timed Quiz.");
 /* Question indices. Alternative would be to make a question an object */ 
 const promptIndex = 0;
 const choicesIndex = 1;
@@ -29,7 +29,7 @@ function removeMainWrapperContent( ) {
 function removeQASectionContent( ) {
 	const QASectionEl = document.getElementById('QA-section');
 	if (QASectionEl != null) {  /* null or undefined. QA section not created until renderQuestion */
-		console.log("Removing QA Section content."); 
+		myLog("Removing QA Section content."); 
 		QASectionEl.remove();  // remove QA section and all elements in it.
 	}
 	// recreate and insert QASection element
@@ -81,7 +81,7 @@ function renderMain( ) {
 
 // Set DOM globals, insert timeLeft element, render first question.  timer-setInterval also begun. 
 function takeQuiz() {
-	console.log("Beginning takeQuiz");
+	myLog("Beginning takeQuiz");
 	
 	let timeLeft = maxTime; 
 	let DOMGlobalsEl = document.getElementById("DOM-globals");
@@ -104,11 +104,11 @@ function takeQuiz() {
     const intervalId = setInterval(() => {
 		DOMGlobalsEl.setAttribute("intervalId", intervalId);
 		timeLeft = DOMGlobalsEl.getAttribute("timeLeft") - 1; 
-		console.log("Time left = " + timeLeft); 
+		myLog("Time left = " + timeLeft); 
 		DOMGlobalsEl.setAttribute("timeLeft", timeLeft); 
 		timeLeftEl.innerText = "Time Left: " + timeLeft; 
 		if (timeLeft <= 0) {
-			console.log("Stopping timer");
+			myLog("Stopping timer");
 			// Results in Edge warning [violation] even with alert after clearInterval. It seems these violations occur often 
 			// when they are not really problems. 
 			clearInterval(intervalId);  
@@ -173,9 +173,9 @@ QASectionEl.appendChild(correctEl);
 let correctTextEl = document.createElement("p");  // Starting, Correct, Incorrect, Done, blank goes here
 correctTextEl.id = "correct-text-id";  
 let globalEl = document.getElementById("DOM-globals");
-console.log("GlobalEl is " + globalEl.outerHTML); // VERY helpful 
+myLog("GlobalEl is " + globalEl.outerHTML); // VERY helpful 
 var correctGlobal = globalEl.getAttribute("correct-indicator"); 
-console.log("Global correct-indicator is " + correctGlobal); 
+myLog("Global correct-indicator is " + correctGlobal); 
 correctTextEl.innerText = correctGlobal;  // displays on screen
 correctEl.appendChild(correctTextEl); 
 
@@ -188,26 +188,26 @@ correctEl.appendChild(correctTextEl);
 // This isn't a problem, since we expect to wait on this handler when it has an alert. 
 function checkAnswer(event) { 
 	event.preventDefault();
-	console.log("Event is " + event); 
+	myLog("Event is " + event); 
 	// this seems to be "[object HTMLbuttonElement]" 
-	console.log("Checking Answer: this.value = " + this.value); 
+	myLog("Checking Answer: this.value = " + this.value); 
 	let buttonClicked = event.target;
 	let correctAns = buttonClicked.value;
 	let buttonTextContent = event.target.textContent;
-	console.log("Event.target.value = " + correctAns);
-	console.log("Event.target.textContent = " + buttonTextContent);
+	myLog("Event.target.value = " + correctAns);
+	myLog("Event.target.textContent = " + buttonTextContent);
 	// alert("Checking answer. event.targer.value is " + correctAns); 
 	let globalEl = document.getElementById("DOM-globals");
 	globalEl.setAttribute("correct-indicator", "Incorrect"); 
 	let correctEl = document.getElementById("correct-text-id");
 	correctEl.innerText = "Incorrect"; 
 	if (correctAns.trim().toLowerCase() == buttonTextContent.trim().toLowerCase()) {
-		console.log("Answer is correct!"); 
+		myLog("Answer is correct!"); 
 		correctEl.innerText = "Correct"; 
 		globalEl.setAttribute("correct-indicator", "Correct"); 
 		let currentQuestionIndex = Number(globalEl.getAttribute("question-index"));
 		currentQuestionIndex++;  // only change question if answer correct (tweak from demo) 
-		console.log("Next question index is " + currentQuestionIndex);
+		myLog("Next question index is " + currentQuestionIndex);
 		globalEl.setAttribute("question-index", currentQuestionIndex);
 		if (currentQuestionIndex >= questions.length) {
 	        globalEl.setAttribute("correct-indicator", "Done"); 
@@ -248,7 +248,7 @@ function renderEnterName(timeLeft) {
 	const labelEl = document.createElement("label");
 	labelEl.innerText = "You scored a " + timeLeft + ". Enter Your Name";  // setAttribute wont work here
 	labelEl.setAttribute("for", "nameInput"); 
-	console.log("Label Element is " + labelEl.outerHTML); 
+	myLog("Label Element is " + labelEl.outerHTML); 
 	wrapperEl.appendChild(labelEl); // 
 	// formEl.appendChild(labelEl);	
 		
@@ -280,7 +280,7 @@ function createQuestions() {
     choices = ["strings", "booleans", "alerts", "numbers"];
     correct = "alerts";
     question = [prompt, choices, correct];  // cant reassign to a constant.
-	// console.log("First question=" + question); 
+	// myLog("First question=" + question); 
     questionsArray.push(question);
     prompt = "Arrays in javascript can be used to store: ";
     choices = ["numbers and strings", "other arrays", "booleans", "all of the above"];
@@ -293,24 +293,25 @@ function createQuestions() {
     question = [prompt, choices, correct];
     questionsArray.push(question);    
     prompt = "A very useful tool during development and debugging for printing values is";
-    choices = ["JavaScript", "terminal/bash", "for loops", "console.log"];
-    correct = "console.log";
+    choices = ["JavaScript", "terminal/bash", "for loops", "myLog"];
+    correct = "myLog";
     question = [prompt, choices, correct];
     // questionsArray.push(question);    
-	// console.log("questions length " + questionsArray.length + " Questions=" + questionsArray); 
+	// myLog("questions length " + questionsArray.length + " Questions=" + questionsArray); 
 	return questionsArray; 
 } // end funct createQuestions
 
 // helper methods ------------------------
 
-/* function myLog(tring") {
-	console.log(
-*/ 
-// show an array (length and each item  
+function myLog("inString") {
+	console.log(inString);
+}  
+ 
+// show an array (length and each item)   
 function logArray(inArray) {
-	console.log("Logging array of size: " + inArray.length); 
+	myLog("Logging array of size: " + inArray.length); 
 	inArray.forEach((item) => {
-	 	console.log(item); 
+	 	myLog(item); 
 	}) 	
-	console.log(""); 
+	myLog(""); 
 } // end funct logArray 

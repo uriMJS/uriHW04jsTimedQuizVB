@@ -1,20 +1,20 @@
 // MJS - hiScores pseudo-class. 
 // get hiScores from local storage ... update 
 function updateHiScores(ev) {
-	console.log("Entering updateHiScores ... "); 
+	hiScoresLog("Entering updateHiScores ... "); 
 	let nameInput = document.getElementById("nameInput").value; 
 	if (nameInput.length == 0) {  // unique error checking soln 
 		nameInput = "PersonWithNoName"; 
 	}
 	if (nameInput == "reset") {
-		console.log("Resetting local storage "); 
+		hiScoresLog("Resetting local storage "); 
 		localStorage.removeItem("hiScores"); 
 	}
 	
 	let globalEl = document.getElementById("DOM-globals"); 
 	let score = globalEl.getAttribute("timeLeft"); 
 	
-	console.log("Updating hi scores for " + nameInput + " Score: " + score); 
+	hiScoresLog("Updating hi scores for " + nameInput + " Score: " + score); 
 	const newEntry = {nameInput: nameInput, score: score};  // object much better than array
 	let scoreArray = new Array();
 	scoreArray.push(newEntry); 
@@ -23,27 +23,27 @@ function updateHiScores(ev) {
 	
 	// If hiScores isnt JSON, this will fail. No easySoln => delete localStorage hiScores. 
 	let hiScores = JSON.parse(localStorage.getItem("hiScores"));
-	console.log("HiScores from localStorage is " + hiScores); 
+	hiScoresLog("HiScores from localStorage is " + hiScores); 
 	if (!hiScores) {
-		console.log("Adding first hiScore "); 
+		hiScoresLog("Adding first hiScore "); 
 		localStorage.setItem("hiScores", JSON.stringify(scoreArray));
 	} else {
 		insertHiScore(hiScores, newEntry);
 		// hiScores.push(newEntry);
 		localStorage.setItem("hiScores", JSON.stringify(hiScores));
 	} 
-	console.log("Done updating HiScores in local Storage ... ");  
+	hiScoresLog("Done updating HiScores in local Storage ... ");  
 	renderHiScores(); 
 } // end funct updateHiScores
 
 // insertHiScore - insert into ordered array using splice
 function insertHiScore(hiScoreArray, newEntry) { 
-	console.log("Inserting high score " + newEntry); 
+	hiScoresLog("Inserting high score " + newEntry); 
 	let insertAt = 0; 
 	let newScore = newEntry.score; 
 	for (let i=0; i < hiScoreArray.length; i++) {
 		let currentScore = hiScoreArray[i].score;
-		console.log("NewScore: " + newScore + " Current " + currentScore); 
+		hiScoresLog("NewScore: " + newScore + " Current " + currentScore); 
 		if (newScore <= currentScore) {
 			insertAt++; 
 		} 
@@ -53,7 +53,7 @@ function insertHiScore(hiScoreArray, newEntry) {
 
 // display hiScores from localStorage on the screen 
 function renderHiScores( ) {
-	console.log("rendering HiScores from local Storage ... ");  
+	hiScoresLog("rendering HiScores from local Storage ... ");  
 	removeMainWrapperContent();  // call here as it is DOM dependent, but well live with it.  
 	let wrapperEl = document.getElementById("removable-main-wrapper"); 
 	let scoreArray = JSON.parse(localStorage.getItem("hiScores"));  // can not exist 
@@ -91,3 +91,7 @@ function removeHiScores() {
 	localStorage.removeItem("hiScores"); 
 	renderHiScores();  // re-render screen 
 } // end funct removeHiScores 
+
+function hiScoresLog(inString) {
+	console.log(inString); 
+} 
