@@ -1,5 +1,5 @@
 # uriHW04jsTimedQuizVB
-Timed quiz using dynamic javascript and timers. MJS 10.14.26
+Timed quiz using dynamic javascript and timers. Michael Sheliga 10.14.26
 
 ## Links
 Deployed HTML Link: "https://urimjs.github.io/uriHW04jsTimedQuizVB/"  
@@ -22,7 +22,7 @@ This project was long, with a few tricky bugs.
       - Solution: Use a div to surround each button.  
    - Button Click Handler - 4 Methods - onclicks and addEventListener 
       - Documentation at www.xjavascript.com/blog/how-to-set-onclick-with-javascript/   
-      - <button onclick="handler(event)"> and button.setAttribute("onclick", "checkAnswer(event)")
+      - button onclick="handler(event)" tag and button.setAttribute("onclick", "checkAnswer(event)")
          - Note onclick, not onClick  
 		 - Both handlers gets quotes, parenthesis and event  
 	  - button.onclick = checkAnswer and button.addEventListener("click", handler)  
@@ -68,9 +68,9 @@ Deployment: To create githubio deployment
 	  - Click on Branch -> main: root (just below Source)  
 
 ## Acceptance Criteria
-    Click the start button: timer starts and I am presented with a question
-    answer a question, presented with another question
-    answer a question incorrectly, time (15) is subtracted from the clock
-    all questions are answered or the timer reaches 0, game is over
-    game is over, can save my initials and score.  
+	Click the start button: timer starts and I am presented with a question  
+	answer a question, presented with another question
+	answer a question incorrectly, time (15) is subtracted from the clock
+	all questions are answered or the timer reaches 0, game is over
+	game is over, can save my initials and score.  
 	Note Tweaks: Total time of 10, wrong answer => 5 second penalty and disabled button. 
