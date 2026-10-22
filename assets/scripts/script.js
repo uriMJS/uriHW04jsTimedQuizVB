@@ -103,10 +103,7 @@ function takeQuiz() {
 	/* These are caused by alerts, and should be ignored */ 
     const intervalId = setInterval(() => {
 		DOMGlobalsEl.setAttribute("intervalId", intervalId);
-		timeLeft = DOMGlobalsEl.getAttribute("timeLeft") - 1; 
-		myLog("Time left = " + timeLeft); 
-		DOMGlobalsEl.setAttribute("timeLeft", timeLeft); 
-		timeLeftEl.innerText = "Time Left: " + timeLeft; 
+		var timeLeft = subtractFromTimeLeft(1);  // updates DOM-globals and screen 
 		if (timeLeft <= 0) {
 			myLog("Stopping timer");
 			// Results in Edge warning [violation] even with alert after clearInterval. It seems these violations occur often 
@@ -219,11 +216,7 @@ function checkAnswer(event) {
 			renderQuestion(questions[currentQuestionIndex]); 
 		} 
 	} else {  // answer wrong 
-		let timeLeft = globalEl.getAttribute("timeLeft"); 
-		timeLeft = timeLeft - wrongPenalty; 
-		globalEl.setAttribute("timeLeft", timeLeft); 
-		let timeLeftEl = document.getElementById("time-left"); 
-		timeLeftEl.innerText = "Time Left: " + timeLeft; 
+		subtractFromTimeLeft(wrongPenalty);  // update in DOM-globals and timeLeft Element
 		 // any 2nd value here, even false, will disable button. Must removeAttribute to re-enable. 
 		buttonClicked.setAttribute("disabled", "disabled"); 
 		buttonClicked.textContent = "Nope"; 
@@ -302,6 +295,16 @@ function createQuestions() {
 } // end funct createQuestions
 
 // helper methods ------------------------
+// Get timeLeft from DOM-globals element, subtract input amt, store back to DOM-globals and to timeLeftElement. 
+function subtractFromTimeLeft(amount) {
+	var DOMGlobalsEl = document.getElementById("DOM-globals"); 
+	var timeLeft = DOMGlobalsEl.getAttribute("timeLeft") - amount; 
+	myLog("Time left = " + timeLeft); 
+	DOMGlobalsEl.setAttribute("timeLeft", timeLeft); 
+	var timeLeftEl = document.getElementById("time-left"); 
+	timeLeftEl.innerText = "Time Left: " + timeLeft;
+	return timeLeft; 
+} // end funct subtractFromTimeLeft 
 
 function myLog(inString) {
 	console.log(inString);
