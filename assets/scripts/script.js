@@ -303,7 +303,7 @@ function createQuestions() {
 
 // helper methods ------------------------
 
-function myLog("inString") {
+function myLog(inString) {
 	console.log(inString);
 }  
  
