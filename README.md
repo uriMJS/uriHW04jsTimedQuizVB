@@ -6,26 +6,6 @@ Deployed HTML Link: "https://urimjs.github.io/uriHW04jsTimedQuizVB/"
 GitHub Repo Link: "https://github.com/uriMJS/uriHW04jsTimedQuizVBjsVB.git"   
 Screenshot Question Link: ![Screenshot of program with with question](./assets/Screenshot04Question.png)   
 Screenshot HiScore Link: ![Screenshot of program with with high scores ](./assets/Screenshot04HiScore.png)
-
-## Notes
-No starter code (index.html, style.css, script.js and a .png file) for this project.   
-**All code, including CSS written from scratch.**    
-The programming was pretty straight-forward, but long. Lots of adding elements to DOM.   
-For the screenshot link: This image seems to only show up in github.  
-For screenshot ![Text] is just explanatory text.   
-To create githubio  
-	- Go to the repo (github.com/uriMJS/uriHW04jsTimedQuizVB).  
-	- Click on the **Settings** button.  2nd Row of Icons from top, far right.
-	- 
-
-## Acceptance Criteria
-    Click the button to generate a password - presented with a series of prompts for password criteria  
-    prompted for password criteria - select which criteria to include in the password  
-    prompted for the length of the password - choose 8 characters to 128 characters  
-    asked for character types to include in the password - confirm whether or not to include lower-uppercase, numeric, and/or special chars  
-    I answer each prompt - input should be validated and at least one character type should be selected  
-    All prompts are answered - a password is generated that matches the selected criteria  
-    The password is generated - and is either displayed in an alert or written to the page.  
 	
 ## Significant Programming Features   
 This project was long, with a few tricky bugs.    
@@ -35,7 +15,8 @@ This project was long, with a few tricky bugs.
    - "Global" values kept in the DOM (question-index, time-left, Message, interval-id).  
    - intervalId = setInterval(callback method, time)
       - No inner functions since intervalID kept in DOM  
-	  - clearInterval(intervalId) in checkAnswer need not be inisde setInterval 
+	  - clearInterval(intervalId) in checkAnswer need not be inisde setInterval  
+   - Used two js files. script.js and hiScores.js. 	  
    - Used split(index, length, insertItem) for ordered HiScore list.    
    - **Issue** Buttons displayed in-line, even when inside block or flex-direction column.  
       - Solution: Use a div to surround each button.  
@@ -47,7 +28,8 @@ This project was long, with a few tricky bugs.
 	  - button.onclick = checkAnswer and button.addEventListener("click", handler)  
 	     - No handler quotes, parenthesis nor event  
          - addEventListener is only method using "click" instead of "onclick"	
-   - **Issue** 		 
+   - **Issue** Form submit button returns to main screen.  
+      - Solution: Use event.preventDefault  	  
  
 **CSS**  
    - Multiple button classes (normal and disabled) with different background-colors.  
@@ -65,8 +47,30 @@ This project was long, with a few tricky bugs.
 	  - Use button.removeAttribute("disabled") to enable.
 	  - Inconsistent documentation on button.disabled = false;
 	  
-**Tools (Aint nothing more important than your tools)  
+**Tools** (Aint nothing more important than your tools)  
    - Webpage Debugger. CNTL-SHIFT-J  
       - Set breakpoints and inspected variables.  
       - LocalStorage. Found and deletable under Attributes tab.  
-   
+	  - CSS values. Can find striken DOM properties, such as margin, but not why they were striken.
+	  
+## Notes
+No starter code (index.html, style.css, script.js and a .png file) for this project.   
+**All code, including CSS written from scratch.**    
+The programming was pretty straight-forward, but long. Lots of adding elements to DOM.   
+Screenshot Link: This image seems to only show up in github.  
+For screenshot ![Text] is just explanatory text.   
+Deployment: To create githubio deployment    
+   - Go to the repo (github.com/uriMJS/uriHW04jsTimedQuizVB).   
+   - Click on the **Settings** button.  2nd Row of Icons from top, far right.  
+   - Click on the Pages button.  Left menu list, about 60% down.  
+   - Github Pages Screen Should Appear  
+      - Click on Source -> Deploy From a Branch (near screen center)  
+	  - Click on Branch -> main: root (just below Source)  
+
+## Acceptance Criteria
+    Click the start button: timer starts and I am presented with a question
+    answer a question, presented with another question
+    answer a question incorrectly, time (15) is subtracted from the clock
+    all questions are answered or the timer reaches 0, game is over
+    game is over, can save my initials and score.  
+	Note Tweaks: Total time of 10, wrong answer => 5 second penalty and disabled button. 
