@@ -9,6 +9,7 @@ const maxTime = 10;       // in seconds
 const wrongPenalty = 5;   // Penalty for wrong answers 
 
 var questions = createQuestions();
+var useForm = false;   // Global used to alternate between getting users name from form or not. 
 renderMain();  // Welcome screen with BeginQuiz and HighScore buttons.
 
 // ----------------- Called Methods Below This Line ----------------------
@@ -225,7 +226,8 @@ function checkAnswer(event) {
 	} // end if-else answerIsCorrect
 } // end function checkAnswer
 
-// render Enter Name function 
+// render Enter Name function.  Based upon global useForm, this will either use a form 
+// element, or just use a button.  
 function renderEnterName(timeLeft) {
 	removeMainWrapperContent();
 	const wrapperEl = document.getElementById("removable-main-wrapper");
@@ -235,14 +237,21 @@ function renderEnterName(timeLeft) {
 	// This lead to the program being reloaded, once the button is clicked and the 
 	// event handler ends. 
 	const formEl = document.createElement("form");
-	formEl.setAttribute("class", "flex-column"); 
-	// wrapperEl.appendChild(formEl); 
+	formEl.setAttribute("class", "flex-column");
+	attachToEl = wrapperEl; 
+	var submitText = "Submit"
+	if (useForm) {
+		wrapperEl.appendChild(formEl);
+		attachToEl = formEl; 
+		myLog("Using a form to enter user name"); 
+		submitText = "Submit Form"; 
+	} // end if useForm 
 	
 	const labelEl = document.createElement("label");
 	labelEl.innerText = "You scored a " + timeLeft + ". Enter Your Name";  // setAttribute wont work here
 	labelEl.setAttribute("for", "nameInput"); 
 	myLog("Label Element is " + labelEl.outerHTML); 
-	wrapperEl.appendChild(labelEl); // 
+	attachToEl.appendChild(labelEl); // either wrapperEl or formEl 
 	// formEl.appendChild(labelEl);	
 		
 	const promptEl = document.createElement("input");
@@ -251,15 +260,21 @@ function renderEnterName(timeLeft) {
 	promptEl.setAttribute("maxlength", "30"); 
 	promptEl.setAttribute("name", "Your Name"); 
 	promptEl.defaultValue = "Your Name"; 
-	wrapperEl.appendChild(promptEl); // 
+	attachToEl.appendChild(promptEl); // 
 	// formEl.appendChild(promptEl);
 	
 	const submitBtnEl = document.createElement("button");  // not really a submit button, just a button
-	submitBtnEl.innerText = "Submit";
+	submitBtnEl.innerText = submitText;
 	submitBtnEl.id = "submitBtn";
-	submitBtnEl.addEventListener("click", updateHiScores);
-	wrapperEl.appendChild(submitBtnEl); // 
+	if (useForm) {
+		// if add click eventListener to form, any click will run eventListener
+	   formEl.addEventListener("submit", updateHiScores);  // wont go to main screen. 
+	} else {
+		submitBtnEl.addEventListener("click", updateHiScores);
+	}
+	attachToEl.appendChild(submitBtnEl); // 
 	// formEl.appendChild(submitBtnEl); 
+	useForm = !useForm;  // change for next iteration
 } // end funct renderEnterName(); 
 
 // Create questions (prompts, choices and correct answer).

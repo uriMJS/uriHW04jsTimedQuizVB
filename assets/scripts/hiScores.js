@@ -1,6 +1,7 @@
 // MJS - hiScores pseudo-class. 
 // get hiScores from local storage ... update 
 function updateHiScores(ev) {
+	ev.preventDefault();  // prevent propagation up DOM and to server.
 	hiScoresLog("Entering updateHiScores ... "); 
 	let nameInput = document.getElementById("nameInput").value; 
 	if (nameInput.length == 0) {  // unique error checking soln 
@@ -18,7 +19,6 @@ function updateHiScores(ev) {
 	const newEntry = {nameInput: nameInput, score: score};  // object much better than array
 	let scoreArray = new Array();
 	scoreArray.push(newEntry); 
-	// scoreArray.push(newEntry);  // twice for now for debugging
 	logArray(scoreArray); 
 	
 	// If hiScores isnt JSON, this will fail. No easySoln => delete localStorage hiScores. 
@@ -29,7 +29,6 @@ function updateHiScores(ev) {
 		localStorage.setItem("hiScores", JSON.stringify(scoreArray));
 	} else {
 		insertHiScore(hiScores, newEntry);
-		// hiScores.push(newEntry);
 		localStorage.setItem("hiScores", JSON.stringify(hiScores));
 	} 
 	hiScoresLog("Done updating HiScores in local Storage ... ");  
