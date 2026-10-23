@@ -259,7 +259,7 @@ function renderEnterName(timeLeft) {
 	promptEl.setAttribute("type", "text");
 	promptEl.setAttribute("maxlength", "30"); 
 	promptEl.setAttribute("name", "Your Name"); 
-	promptEl.defaultValue = "Your Name"; 
+	promptEl.placeholder = "Your Name"; 
 	attachToEl.appendChild(promptEl); // 
 	// formEl.appendChild(promptEl);
 	
