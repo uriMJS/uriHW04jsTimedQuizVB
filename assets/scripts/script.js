@@ -185,7 +185,7 @@ correctEl.appendChild(correctTextEl);
 // and waiting for alert user-click.  
 // This isn't a problem, since we expect to wait on this handler when it has an alert. 
 function checkAnswer(event) { 
-	event.preventDefault();
+	event.preventDefault();  // prevent parent elements (and server) from getting this event. 
 	myLog("Event is " + event); 
 	// this seems to be "[object HTMLbuttonElement]" 
 	myLog("Checking Answer: this.value = " + this.value); 

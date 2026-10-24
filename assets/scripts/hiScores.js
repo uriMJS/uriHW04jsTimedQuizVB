@@ -35,6 +35,14 @@ function updateHiScores(ev) {
 	renderHiScores(); 
 } // end funct updateHiScores
 
+// This function used for event.preventDefault() testing.  MJS 10.24.26 
+function updateHiScoresAlertsOnly(ev) {
+	// ev.preventDefault();  // without preventDefault, alert only handler returns to main screen. 
+	alert("Updating hi scores for " + document.getElementById("nameInput").value); 
+	alert("Update hi scores ... event.preventDefault testing. "); 
+	// renderHiScores(); // This also prevents program from going to the main screen. 
+}
+
 // insertHiScore - insert into ordered array using splice
 function insertHiScore(hiScoreArray, newEntry) { 
 	hiScoresLog("Inserting high score " + newEntry); 

@@ -28,8 +28,9 @@ This project was long, with a few tricky bugs.
 	  - button.onclick = checkAnswer and button.addEventListener("click", handler)  
 	     - No handler quotes, parenthesis nor event  
          - addEventListener is only method using "click" instead of "onclick"	
-   - **Issue** Form submit button returned to main screen. (Could not replicate.)  
-      - Likely Solution: Use event.preventDefault  	  
+   - **Issue** Form submit button returned to main screen. (Replicated at end of project for testing.)  
+      - Solution: Use event.preventDefault  
+	  - Note that this problem occurs if handler only has alerts, but not if screen is re-rendered.  
  
 **CSS**  
    - Multiple button classes (normal and disabled) with different background-colors.  
